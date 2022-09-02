@@ -1,0 +1,55 @@
+﻿<Window x:Class="Week8Project.UploadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Week8Project"
+        mc:Ignorable="d"
+        Title="Upload Photo" Height="550" Width="900" Background="#FF424141"
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Closed="On_Closed" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Canvas>
+            <StackPanel Width="550" Height="370" Canvas.Left="25" Canvas.Top="36" Background="#FF313030">
+                <Image x:Name="imgNewImage" Source="{Binding ImageByte}" Width="550" Height="370"/>
+            </StackPanel>
+            <Button x:Name="btnSelectImage" Content="Select Image" Height="30" Width="100"  
+                    Click="btnSelectImage_Click" Canvas.Left="250" Canvas.Top="450" Background="#FF3A3939" 
+                    BorderBrush="#FF467394" Foreground="#FF467394" BorderThickness="2,2,2,2" 
+                    FontSize="14" FontWeight="Bold"/>
+        </Canvas>
+        <Canvas Background="#FF313030" Grid.Column="1" Grid.Row="0">
+            <ComboBox x:Name="cboState" Width="230" Canvas.Left="35" Canvas.Top="115"
+                      Foreground="#FF737373" BorderBrush="#FF467394" 
+                      BorderThickness="2,2,2,2" Background="#FF424141" FontSize="14"/>
+            <DatePicker x:Name="dtpTaken" Width="230" Canvas.Left="35" Canvas.Top="145"
+                        Background="#FF424141" Foreground="#FF737373" BorderThickness="2,2,2,2" 
+                        BorderBrush="#FF467394" FontSize="14"/>
+            <TextBox x:Name="txtTags" Text="Enter tags seperated by comma" Width="230" 
+                     Canvas.Left="35" Canvas.Top="179" TextWrapping="Wrap" Height="100"
+                     GotFocus="txtTags_GotFocus" LostFocus="txtTags_LostFocus"
+                     Background="#FF424141" BorderBrush="#FF467394" Foreground="#FF737373" 
+                     BorderThickness="2,2,2,2" FontSize="14"/>
+            <TextBox x:Name="txtTitle" Text="Enter title" Width="230" Canvas.Left="35" 
+                     Canvas.Top="87" GotFocus="txtTitle_GotFocus" LostFocus="txtTitle_LostFocus"
+                     Background="#FF424141" BorderBrush="#FF467394" Foreground="#FF737373" 
+                     BorderThickness="2,2,2,2" FontSize="14"/>
+            <TextBox x:Name="txtDescription" Text="Enter description" Width="230" Canvas.Left="35" 
+                     Canvas.Top="284" TextWrapping="Wrap" Height="100" 
+                     GotFocus="txtDescription_GotFocus" LostFocus="txtDescription_LostFocus"
+                     Background="#FF424141" BorderBrush="#FF467394" Foreground="#FF737373" 
+                     BorderThickness="2,2,2,2" FontSize="14"/>
+            <Button x:Name="btnSave" Content="Save" Canvas.Left="35" Canvas.Top="389"
+                    Click="btnSave_Click" Background="#FF3A3939" BorderBrush="#FF467394" 
+                    Foreground="#FF467394" BorderThickness="2,2,2,2" Width="100" Height="30" 
+                    FontSize="14" FontWeight="Bold"/>
+            <Button x:Name="btnCancel" Content="Cancel" Canvas.Left="165" Canvas.Top="389"
+                    Click="btnCancel_Click" Background="#FF3A3939" BorderBrush="#FF467394" 
+                    Foreground="#FF467394" BorderThickness="2,2,2,2" Width="100" Height="30" 
+                    FontSize="14" FontWeight="Bold"/>
+        </Canvas>
+    </Grid>
+</Window>

@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Week8ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ImageTags">
+          <Key>
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="TagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserImageID" Type="int" Nullable="false" />
+          <Property Name="Tag" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="StateID" />
+          </Key>
+          <Property Name="StateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserImages">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateTaken" Type="datetime" Nullable="false" />
+          <Property Name="ImageByte" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ImageTags_UserImages">
+          <End Role="UserImages" Type="Self.UserImages" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ImageTags" Type="Self.ImageTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserImages">
+              <PropertyRef Name="ImageID" />
+            </Principal>
+            <Dependent Role="ImageTags">
+              <PropertyRef Name="UserImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserImages_States">
+          <End Role="States" Type="Self.States" Multiplicity="1" />
+          <End Role="UserImages" Type="Self.UserImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="StateID" />
+            </Principal>
+            <Dependent Role="UserImages">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Week8ProjectModelStoreContainer">
+          <EntitySet Name="ImageTags" EntityType="Self.ImageTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserImages" EntityType="Self.UserImages" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ImageTags_UserImages" Association="Self.FK_ImageTags_UserImages">
+            <End Role="UserImages" EntitySet="UserImages" />
+            <End Role="ImageTags" EntitySet="ImageTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserImages_States" Association="Self.FK_UserImages_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="UserImages" EntitySet="UserImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Week8ProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ImageTag">
+          <Key>
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="TagID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserImageID" Type="Int32" Nullable="false" />
+          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserImage" Relationship="Self.FK_ImageTags_UserImages" FromRole="ImageTags" ToRole="UserImages" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateID" />
+          </Key>
+          <Property Name="StateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserImages" Relationship="Self.FK_UserImages_States" FromRole="States" ToRole="UserImages" />
+        </EntityType>
+        <EntityType Name="UserImage">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateTaken" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ImageByte" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="ImageTags" Relationship="Self.FK_ImageTags_UserImages" FromRole="UserImages" ToRole="ImageTags" />
+          <NavigationProperty Name="State" Relationship="Self.FK_UserImages_States" FromRole="UserImages" ToRole="States" />
+        </EntityType>
+        <Association Name="FK_ImageTags_UserImages">
+          <End Role="UserImages" Type="Self.UserImage" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ImageTags" Type="Self.ImageTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserImages">
+              <PropertyRef Name="ImageID" />
+            </Principal>
+            <Dependent Role="ImageTags">
+              <PropertyRef Name="UserImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserImages_States">
+          <End Role="States" Type="Self.State" Multiplicity="1" />
+          <End Role="UserImages" Type="Self.UserImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="StateID" />
+            </Principal>
+            <Dependent Role="UserImages">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Week8ProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ImageTags" EntityType="Self.ImageTag" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="UserImages" EntityType="Self.UserImage" />
+          <AssociationSet Name="FK_ImageTags_UserImages" Association="Self.FK_ImageTags_UserImages">
+            <End Role="UserImages" EntitySet="UserImages" />
+            <End Role="ImageTags" EntitySet="ImageTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserImages_States" Association="Self.FK_UserImages_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="UserImages" EntitySet="UserImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Week8ProjectModelStoreContainer" CdmEntityContainer="Week8ProjectEntities">
+          <EntitySetMapping Name="ImageTags">
+            <EntityTypeMapping TypeName="Week8ProjectModel.ImageTag">
+              <MappingFragment StoreEntitySet="ImageTags">
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+                <ScalarProperty Name="UserImageID" ColumnName="UserImageID" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="Week8ProjectModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserImages">
+            <EntityTypeMapping TypeName="Week8ProjectModel.UserImage">
+              <MappingFragment StoreEntitySet="UserImages">
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateTaken" ColumnName="DateTaken" />
+                <ScalarProperty Name="ImageByte" ColumnName="ImageByte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

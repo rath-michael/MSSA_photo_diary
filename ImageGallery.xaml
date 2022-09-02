@@ -1,0 +1,108 @@
+﻿<Window x:Class="Week8Project.ImageGallery"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Week8Project"
+        mc:Ignorable="d"
+        Title="Gallery" Height="550" Width="900" WindowStartupLocation="CenterScreen" Name="Image_Gallery"
+        Loaded="Window_Loaded" Background="#FF424141" ResizeMode="NoResize" Closed="Window_Closed">
+    <StackPanel Height="530">
+        <StackPanel Orientation="Horizontal" Height="30">
+            <StackPanel Width="300" VerticalAlignment="Center">
+                <Button x:Name="btnBack" Click="btnBack_Click" Background="#FF424141" HorizontalAlignment="left"
+                        BorderBrush="#FF424141" Height="40" Width="45" Cursor="Hand">
+                    <StackPanel>
+                        <Image Source="/Images/back_icon.png" Height="25" Width="25"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Width="300" VerticalAlignment="Center">
+                <Label x:Name="lblDisplay" Height="30" FontSize="18" Content="3 Photos" HorizontalAlignment="Stretch" 
+                       HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Width="300">
+
+            </StackPanel>
+        </StackPanel>
+        <Grid Height="440" ShowGridLines="False" Background="#FF313030">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="230" MaxHeight="220"/>
+                <RowDefinition Height="230" MaxHeight="220"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="ImageOne" Source="{Binding ImageByte}"
+                   Width="260" Height="175" Grid.Row="0" Grid.Column="0" MouseEnter="Image_MouseEnter" 
+                   MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image_MouseLeftButtonUp">
+                <Image.Effect>
+                    <DropShadowEffect/>
+                </Image.Effect>
+            </Image>
+            <Image x:Name="ImageTwo" Source="{Binding ImageByte}" 
+                   Width="260" Height="175" Grid.Row="0" Grid.Column="1" MouseEnter="Image_MouseEnter" 
+                   MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image_MouseLeftButtonUp">
+                <Image.Effect>
+                    <DropShadowEffect/>
+                </Image.Effect>
+            </Image>
+            <Image x:Name="ImageThree" Source="{Binding ImageByte}" 
+                   Width="260" Height="175" Grid.Row="0" Grid.Column="2" MouseEnter="Image_MouseEnter"
+                   MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image_MouseLeftButtonUp">
+                <Image.Effect>
+                    <DropShadowEffect/>
+                </Image.Effect>
+            </Image>
+            <Image x:Name="ImageFour" Source="{Binding ImageByte}" 
+                   Width="260" Height="175" Grid.Row="1" Grid.Column="0" MouseEnter="Image_MouseEnter"
+                   MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image_MouseLeftButtonUp">
+                <Image.Effect>
+                    <DropShadowEffect/>
+                </Image.Effect>
+            </Image>
+            <Image x:Name="ImageFive" Source="{Binding ImageByte}" 
+                   Width="260" Height="175" Grid.Row="1" Grid.Column="1" MouseEnter="Image_MouseEnter"
+                   MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image_MouseLeftButtonUp">
+                <Image.Effect>
+                    <DropShadowEffect/>
+                </Image.Effect>
+            </Image>
+            <Image x:Name="ImageSix" Source="{Binding ImageByte}" 
+                   Width="260" Height="175" Grid.Row="1" Grid.Column="2" MouseEnter="Image_MouseEnter"
+                   MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image_MouseLeftButtonUp">
+                <Image.Effect>
+                    <DropShadowEffect/>
+                </Image.Effect>
+            </Image>
+        </Grid>
+        <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <StackPanel Width="300">
+                <Button x:Name="btnPrev" Height="40" Width="40" BorderBrush="{x:Null}" Background="{x:Null}" 
+                        Click="btnPrev_Click" Cursor="Hand">
+                    <StackPanel>
+                        <Image Source="/Images/prev_icon.png"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Width="300">
+                <Button x:Name="btnUpload" Click="btnUpload_Click" Background="#FF424141" 
+                        BorderBrush="#FF424141" Height="40" Width="45" Cursor="Hand">
+                    <StackPanel>
+                        <Image Source="/Images/upload_icon.png" Height="40" Width="40"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Width="300">
+                <Button x:Name="btnNext" Height="40" Width="40" BorderBrush="{x:Null}" Background="{x:Null}" 
+                        Click="btnNext_Click" Cursor="Hand">
+                    <StackPanel>
+                        <Image Source="/Images/next_icon.png"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>
