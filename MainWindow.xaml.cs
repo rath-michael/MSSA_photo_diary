@@ -16,7 +16,7 @@ namespace Week8Project
         public MainWindow()
         {
             InitializeComponent();
-            LoadDictionary();
+            //LoadDictionary();
         }
 
         private async void LoadDictionary()
